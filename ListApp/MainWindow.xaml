@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ListApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="ListApp" Height="450" Width="800">
     <Grid>
         <Button Content="Új listaelem hozzáadása" HorizontalAlignment="Left" Margin="596,73,0,0" VerticalAlignment="Top" Height="33" Width="194" Click="Button_Click"/>
         <TextBox Name="Adat" HorizontalAlignment="Left" Margin="596,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="194" Height="58"/>
         <Button Content="Listaelem módosítása" HorizontalAlignment="Left" Margin="596,145,0,0" VerticalAlignment="Top" Height="33" Width="194"/>
-        <Button Content="Listaelem kukába helyezése" HorizontalAlignment="Left" Margin="596,183,0,0" VerticalAlignment="Top" Height="34" Width="194"/>
+        <Button Content="Listaelem kukába helyezése" HorizontalAlignment="Left" Margin="596,183,0,0" VerticalAlignment="Top" Height="34" Width="194" Click="Button_Click_1"/>
         <Button Content="Listaelem végleges törlése" HorizontalAlignment="Left" Margin="596,390,0,0" VerticalAlignment="Top" Height="34" Width="194"/>
-        <ListBox Name="Lista" Margin="10,10,239,217"/>
+        <ListBox Name="Lista" Margin="10,10,239,217" SelectionChanged="Lista_SelectionChanged"/>
         <ListBox Name="TLista" Margin="10,250,239,10"/>
+        <Label Content="Listaelemek" HorizontalAlignment="Left" Margin="10,-8,0,0" VerticalAlignment="Top"/>
+        <Label Content="Törölt elemek" HorizontalAlignment="Left" Margin="10,232,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
