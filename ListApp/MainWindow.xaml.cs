@@ -34,6 +34,7 @@ namespace ListApp
                     Elemek.Add(line);
                     CheckBox listaelem = new CheckBox();
                     listaelem.Content = line;
+                    listaelem.AddHandler(CheckBox.CheckedEvent, new RoutedEventHandler(listaelem_isChecked));
                     Lista.Items.Add(listaelem);
                 }
             }
@@ -46,6 +47,7 @@ namespace ListApp
                     TElemek.Add(line);
                     CheckBox Tlistaelem = new CheckBox();
                     Tlistaelem.Content = line;
+                    Tlistaelem.AddHandler(CheckBox.CheckedEvent, new RoutedEventHandler(listaelem_isChecked));
                     TLista.Items.Add(Tlistaelem);
                 }
             }
@@ -56,6 +58,7 @@ namespace ListApp
             //Listaelem felvétele
             File.AppendAllText(@"Elemek", Adat.Text + System.Environment.NewLine);
             Elemek.Add(Adat.Text);
+
             CheckBox listaelem = new CheckBox();
             listaelem.Content = Adat.Text;
             listaelem.AddHandler(CheckBox.CheckedEvent, new RoutedEventHandler(listaelem_isChecked));
@@ -64,6 +67,7 @@ namespace ListApp
 
         private void listaelem_isChecked(object sender, RoutedEventArgs e)
         {
+            //Ha a listaelemet bepipáljuk, akkor a színe szürke lesz
             (sender as CheckBox).Foreground = new SolidColorBrush(Colors.Gray);
         }
 
@@ -72,10 +76,14 @@ namespace ListApp
             //Áthelyezés a kukába
             File.AppendAllText(@"TElemek", Adat.Text + System.Environment.NewLine);
             TElemek.Add(Adat.Text);
+
             CheckBox Tlistaelem = new CheckBox();
             Tlistaelem.Content = Adat.Text;
+            Tlistaelem.AddHandler(CheckBox.CheckedEvent, new RoutedEventHandler(listaelem_isChecked));
             TLista.Items.Add(Tlistaelem);
+
             Elemek.RemoveAt(Lista.SelectedIndex);
+            File.WriteAllLines(@"Elemek", Elemek);
             Lista.Items.RemoveAt(Lista.SelectedIndex);
             Lista.Items.Refresh();
         }
@@ -95,6 +103,27 @@ namespace ListApp
             TElemek.Clear();
             TLista.Items.Clear();
             File.Delete(@"TElemek");
+            TLista.Items.Refresh();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            //Listaelem nevének módosítása
+            Elemek.RemoveAt(Lista.SelectedIndex);
+            Elemek.Insert(Lista.SelectedIndex, Adat.Text);
+
+            File.Delete(@"Elemek");
+            File.WriteAllLines(@"Elemek", Elemek);
+
+            Lista.Items.Clear();
+            for(int i = 0; i < Elemek.Count; i++)
+            {
+                CheckBox listaelem = new CheckBox();
+                listaelem.Content = Elemek[i];
+                listaelem.AddHandler(CheckBox.CheckedEvent, new RoutedEventHandler(listaelem_isChecked));
+                Lista.Items.Add(listaelem);
+            }
+            Lista.Items.Refresh();
         }
     }
 }
